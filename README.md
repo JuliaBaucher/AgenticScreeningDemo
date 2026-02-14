@@ -71,17 +71,25 @@ This solution introduces:
         v
 [ AWS Step Functions ]
         |
-        +--> 4A Normalize & Dedupe
+        +--> 4A Load Input data from S3 bucket
         |
-        +--> 4B Load Job Context (S3)
+        +--> 4B Ingest historical applicants data from S3 bucket
         |
-        +--> 4C Structured Extraction (Bedrock)
+        +--> 4C Normalize & Dedupe
         |
-        +--> 4D Fit Scoring (Deterministic + Bedrock rationale)
+        +--> 4D Structured Extraction (Bedrock)
         |
-        +--> 4E Next Best Action
+        +--> 4E Fit Scoring (Deterministic + Bedrock rationale)
         |
-        +--> 4F Write Back to S3
+        +--> 4F Update ATS
+        |
+        +--> 4G Manage communication with candidate
+        |
+        +--> 4H Schedule interviews
+        |
+        +--> 4I Output metrics 
+        |
+        +--> 4J Write Back to S3
 ```
 
 ---
