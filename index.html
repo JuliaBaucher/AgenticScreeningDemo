@@ -250,6 +250,114 @@ textarea::placeholder {
     color: #000;
 }
 
+/* ============================
+   NEW (Option A): Metrics UI
+   ============================ */
+.metrics-section {
+    background: #1a1a1a;
+    border-top: 2px solid #3a3a3a;
+}
+
+.metrics-section h3 {
+    color: #00d4ff;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.metrics-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.metrics-select {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    border: 2px solid #3a3a3a;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.metrics-select:hover { border-color: #00d4ff; }
+.metrics-select:focus {
+    outline: none;
+    border-color: #00d4ff;
+    background: #2d2d2d;
+}
+
+.metrics-refresh {
+    background: #2a2a2a;
+    color: #00d4ff;
+    border: 2px solid #00d4ff;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.metrics-refresh:hover {
+    background: #00d4ff;
+    color: #000;
+}
+
+.metrics-status {
+    color: #888;
+    font-size: 0.95rem;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.metric-card {
+    background: #222;
+    border: 2px solid #3a3a3a;
+    border-radius: 10px;
+    padding: 18px;
+    transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+    border-color: #00d4ff;
+    box-shadow: 0 0 18px rgba(0, 212, 255, 0.12);
+}
+
+.metric-title {
+    color: #aaa;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #e0e0e0;
+}
+
+.metric-sub {
+    margin-top: 6px;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.metric-value.approved { color: #00ff88; }
+.metric-value.missing { color: #ffa500; }
+.metric-value.rejected { color: #ff4444; }
+.metric-value.primary { color: #00d4ff; }
+/* ============================ */
+
 .results-section {
     background: #1a1a1a;
     border-top: 2px solid #3a3a3a;
@@ -524,6 +632,54 @@ footer {
             </div>
         </section>
 
+        <!-- ============================
+             NEW (Option A): Metrics section
+             ============================ -->
+        <section class="metrics-section" id="metricsSection">
+            <h3>Live Metrics</h3>
+
+            <div class="metrics-controls">
+                <select id="metricsWindow" class="metrics-select">
+                    <option value="1">Last 1 hour</option>
+                    <option value="6">Last 6 hours</option>
+                    <option value="24" selected>Last 24 hours</option>
+                    <option value="168">Last 7 days</option>
+                    <option value="720">Last 30 days</option>
+                </select>
+                <button id="refreshMetricsBtn" class="metrics-refresh">Refresh metrics</button>
+                <span id="metricsStatus" class="metrics-status">—</span>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">Total Applications</div>
+                    <div id="mTotal" class="metric-value primary">—</div>
+                    <div id="mWindowLabel" class="metric-sub">—</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Interview Scheduled</div>
+                    <div id="mApproved" class="metric-value approved">—</div>
+                    <div class="metric-sub">Approved</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Missing Info</div>
+                    <div id="mMissing" class="metric-value missing">—</div>
+                    <div class="metric-sub">Clarification needed</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Rejected</div>
+                    <div id="mRejected" class="metric-value rejected">—</div>
+                    <div class="metric-sub">Not qualified</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Avg Execution Time</div>
+                    <div id="mAvgTime" class="metric-value">—</div>
+                    <div class="metric-sub">Seconds</div>
+                </div>
+            </div>
+        </section>
+        <!-- ============================ -->
+
         <section class="input-section">
             <h3>Application Inputs</h3>
 
@@ -638,10 +794,11 @@ footer {
  * - This version calls your real backend Lambda Function URL:
  *   POST  {API_BASE_URL}/start
  *   GET   {API_BASE_URL}/status?executionArn=...&applicationId=...
+ * - Option A Metrics:
+ *   GET   {API_BASE_URL}/metrics?windowHours=24
  */
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// CONFIG: paste your Lambda Function URL for the API here
 const API_BASE_URL = "https://e4dju6jctiyrntr7hijshokdgu0mbgxi.lambda-url.eu-west-3.on.aws/".replace(/\/$/, "");
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -827,10 +984,25 @@ const jobDescriptionInput = document.getElementById('jobDescription');
 const candidateCVInput = document.getElementById('candidateCV');
 const screeningResponsesInput = document.getElementById('screeningResponses');
 
+// Metrics DOM (Option A)
+const metricsWindowEl = document.getElementById('metricsWindow');
+const refreshMetricsBtn = document.getElementById('refreshMetricsBtn');
+const metricsStatusEl = document.getElementById('metricsStatus');
+const mTotalEl = document.getElementById('mTotal');
+const mApprovedEl = document.getElementById('mApproved');
+const mMissingEl = document.getElementById('mMissing');
+const mRejectedEl = document.getElementById('mRejected');
+const mAvgTimeEl = document.getElementById('mAvgTime');
+const mWindowLabelEl = document.getElementById('mWindowLabel');
+
 // Event listeners
 startButton.addEventListener('click', startWorkflow);
 loadSampleButton.addEventListener('click', loadSampleData);
 clearButton.addEventListener('click', clearAllFields);
+
+// Metrics listeners
+refreshMetricsBtn.addEventListener('click', () => fetchAndRenderMetrics(true));
+metricsWindowEl.addEventListener('change', () => fetchAndRenderMetrics(true));
 
 function clearAllFields() {
     jobDescriptionInput.value = '';
@@ -877,7 +1049,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// --- NEW: robust UI mapping helpers (fixes "missing info" showing as rejected) ---
+// --- Robust UI mapping helpers (keeps missing-info yellow) ---
 function normalizeConfidence(v) {
     if (typeof v !== "number") return 0;
     return v <= 1 ? Math.round(v * 100) : Math.round(v);
@@ -892,7 +1064,6 @@ function deriveUiCategory(finalData) {
         ? missing.filter(Boolean).map(x => String(x))
         : (missing ? [String(missing)] : []);
 
-    // Highest priority: Missing info / needs info
     if (
         missingList.length > 0 ||
         atsStatus.includes("needsinfo") ||
@@ -907,12 +1078,10 @@ function deriveUiCategory(finalData) {
         return { category: "missing", label: "⚠ Missing Information / Clarification Required", missingList };
     }
 
-    // Rejected
     if (decision.includes("reject") || atsStatus.includes("reject")) {
         return { category: "rejected", label: "✗ Application Rejected", missingList };
     }
 
-    // Interview / invited / approved
     if (
         decision.includes("interview") ||
         decision.includes("schedule") ||
@@ -923,13 +1092,90 @@ function deriveUiCategory(finalData) {
         return { category: "approved", label: "✓ Interview with HR Scheduled", missingList };
     }
 
-    // Fallback using score
     const score = typeof finalData.score === "number" ? finalData.score : 0;
     if (score >= 60) return { category: "approved", label: "✓ Interview with HR Scheduled", missingList };
     if (missingList.length > 0) return { category: "missing", label: "⚠ Missing Information / Clarification Required", missingList };
     return { category: "rejected", label: "✗ Application Rejected", missingList };
 }
-// -------------------------------------------------------------------------------
+
+// ============================
+// Option A: Metrics fetch + render
+// ============================
+function formatWindowLabel(hours) {
+    if (hours === 1) return "Window: last 1 hour";
+    if (hours < 24) return `Window: last ${hours} hours`;
+    if (hours === 24) return "Window: last 24 hours";
+    if (hours === 168) return "Window: last 7 days";
+    if (hours === 720) return "Window: last 30 days";
+    return `Window: last ${hours} hours`;
+}
+
+function setMetricsLoading(isLoading) {
+    refreshMetricsBtn.disabled = isLoading;
+    metricsStatusEl.textContent = isLoading ? "Loading metrics..." : "—";
+}
+
+function safeInt(v) {
+    const n = Number(v);
+    return Number.isFinite(n) ? Math.round(n) : 0;
+}
+
+function safeFloat(v) {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : 0;
+}
+
+async function fetchAndRenderMetrics(userInitiated = false) {
+    const windowHours = parseInt(metricsWindowEl.value, 10) || 24;
+    mWindowLabelEl.textContent = formatWindowLabel(windowHours);
+
+    setMetricsLoading(true);
+
+    try {
+        const resp = await fetch(`${API_BASE_URL}/metrics?windowHours=${encodeURIComponent(windowHours)}`, {
+            method: "GET",
+            headers: { "content-type": "application/json" }
+        });
+
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) {
+            const msg = data && data.error ? data.error : `HTTP ${resp.status}`;
+            throw new Error(msg);
+        }
+
+        const total = safeInt(data.totalApplications);
+        const approved = safeInt(data.approvedCount);
+        const missing = safeInt(data.missingInfoCount);
+        const rejected = safeInt(data.rejectedCount);
+        const avg = safeFloat(data.avgExecutionTimeSeconds);
+
+        mTotalEl.textContent = String(total);
+        mApprovedEl.textContent = String(approved);
+        mMissingEl.textContent = String(missing);
+        mRejectedEl.textContent = String(rejected);
+        mAvgTimeEl.textContent = avg ? String(Math.round(avg * 10) / 10) : "0";
+
+        const now = new Date();
+        metricsStatusEl.textContent = `Last updated: ${now.toLocaleTimeString()}`;
+
+    } catch (e) {
+        // keep previous values; show error unobtrusively
+        metricsStatusEl.textContent = `Metrics unavailable (${e && e.message ? e.message : "error"})`;
+        if (userInitiated) {
+            console.warn("Metrics fetch failed:", e);
+        }
+    } finally {
+        setMetricsLoading(false);
+    }
+}
+
+// Poll metrics every ~20s (Option A recommendation)
+let metricsTimer = null;
+function startMetricsAutoRefresh() {
+    if (metricsTimer) clearInterval(metricsTimer);
+    metricsTimer = setInterval(() => fetchAndRenderMetrics(false), 20000);
+}
+// ============================
 
 async function startWorkflow() {
     const jobDescription = jobDescriptionInput.value.trim();
@@ -986,7 +1232,7 @@ async function runWorkflowVisualization(jobDescription, cv, screeningResponses) 
         statusElement.textContent = '✓ Completed';
     }
 
-    // --- REAL BACKEND CALL (replaces simulateWorkflow) ---
+    // --- REAL BACKEND CALL ---
     let startResp, startData;
     try {
         startResp = await fetch(`${API_BASE_URL}/start`, {
@@ -1035,7 +1281,6 @@ async function runWorkflowVisualization(jobDescription, cv, screeningResponses) 
             break;
         }
 
-        // expected backend field: applicationStatus
         if (sd.applicationStatus === "SUCCEEDED") {
             finalData = sd;
             break;
@@ -1056,7 +1301,7 @@ async function runWorkflowVisualization(jobDescription, cv, screeningResponses) 
 
         const result = {
             executionId: finalData.executionArn,
-            finalDecision: ui.label, // ensures correct color (yellow for missing)
+            finalDecision: ui.label,
             rejectionReasonCode: finalData.rejectionReasonCode || null,
             scoreDetails: {
                 score: score ?? 0,
@@ -1068,6 +1313,9 @@ async function runWorkflowVisualization(jobDescription, cv, screeningResponses) 
         };
 
         displayVerdict(result);
+
+        // NEW: refresh metrics after a successful run (best UX)
+        fetchAndRenderMetrics(false);
     } else {
         startButton.disabled = false;
         startButton.textContent = "START DEMO";
@@ -1083,7 +1331,6 @@ function displayVerdict(result) {
 
     const fd = String(result.finalDecision || "");
 
-    // We now expect labels like: ✓ ... / ⚠ ... / ✗ ...
     if (fd.startsWith("✓")) {
         verdictClass = 'approved';
         verdictText = fd;
@@ -1156,6 +1403,10 @@ function displayVerdict(result) {
 // Initialize
 console.log('🚀 Agentic Hiring Demo - Frontend Loaded');
 console.log('💡 Click "Load Sample Data" then "START DEMO" to see the workflow in action');
+
+// Option A metrics init: load on page open + auto-refresh
+fetchAndRenderMetrics(false);
+startMetricsAutoRefresh();
     </script>
 </body>
 </html>
