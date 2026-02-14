@@ -321,8 +321,12 @@ textarea::placeholder {
 }
 
 @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
-    50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.8); }
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+    }
 }
 
 .step-content {
@@ -335,8 +339,13 @@ textarea::placeholder {
     font-size: 1.1rem;
 }
 
-.step-item.active .step-content h4 { color: #00d4ff; }
-.step-item.completed .step-content h4 { color: #00ff88; }
+.step-item.active .step-content h4 {
+    color: #00d4ff;
+}
+
+.step-item.completed .step-content h4 {
+    color: #00ff88;
+}
 
 .step-status {
     color: #888;
@@ -348,7 +357,10 @@ textarea::placeholder {
     color: #00d4ff;
     animation: pulse-text 1.5s ease-in-out infinite;
 }
-.step-item.completed .step-status { color: #00ff88; }
+
+.step-item.completed .step-status {
+    color: #00ff88;
+}
 
 @keyframes pulse-text {
     0%, 100% { opacity: 1; }
@@ -387,8 +399,14 @@ textarea::placeholder {
 }
 
 @keyframes slideIn {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .final-verdict.approved {
@@ -396,11 +414,13 @@ textarea::placeholder {
     background: rgba(0, 255, 136, 0.1);
     border: 3px solid #00ff88;
 }
+
 .final-verdict.additional-info {
     color: #ffa500;
     background: rgba(255, 165, 0, 0.1);
     border: 3px solid #ffa500;
 }
+
 .final-verdict.rejected {
     color: #ff4444;
     background: rgba(255, 68, 68, 0.1);
@@ -419,11 +439,27 @@ textarea::placeholder {
     justify-content: space-between;
     padding: 15px;
     border-bottom: 1px solid #3a3a3a;
+    gap: 20px;
 }
-.verdict-detail-row:last-child { border-bottom: none; }
 
-.verdict-label { color: #aaa; font-weight: 500; }
-.verdict-value { color: #e0e0e0; font-weight: 600; }
+.verdict-detail-row:last-child {
+    border-bottom: none;
+}
+
+.verdict-label {
+    color: #aaa;
+    font-weight: 500;
+    flex: 0 0 180px;
+    text-align: left;
+}
+
+.verdict-value {
+    color: #e0e0e0;
+    font-weight: 600;
+    flex: 1;
+    text-align: right;
+    word-break: break-word;
+}
 
 .rejection-code {
     background: rgba(255, 68, 68, 0.1);
@@ -432,7 +468,12 @@ textarea::placeholder {
     padding: 20px;
     margin-top: 20px;
 }
-.rejection-code h4 { color: #ff4444; margin-bottom: 10px; }
+
+.rejection-code h4 {
+    color: #ff4444;
+    margin-bottom: 10px;
+}
+
 .rejection-code p {
     color: #ff8888;
     font-family: 'Courier New', monospace;
@@ -520,14 +561,62 @@ footer {
             <h3>Workflow Execution</h3>
 
             <div id="workflowSteps" class="workflow-steps">
-                <div class="step-item" data-step="1"><div class="step-number">1</div><div class="step-content"><h4>Load Job Context</h4><p class="step-status">Waiting...</p></div></div>
-                <div class="step-item" data-step="2"><div class="step-number">2</div><div class="step-content"><h4>Ingest Application</h4><p class="step-status">Waiting...</p></div></div>
-                <div class="step-item" data-step="3"><div class="step-number">3</div><div class="step-content"><h4>Normalize & Dedupe</h4><p class="step-status">Waiting...</p></div></div>
-                <div class="step-item" data-step="4"><div class="step-number">4</div><div class="step-content"><h4>Structured Extraction</h4><p class="step-status">Waiting...</p></div></div>
-                <div class="step-item" data-step="5"><div class="step-number">5</div><div class="step-content"><h4>Fit Scoring</h4><p class="step-status">Waiting...</p></div></div>
-                <div class="step-item" data-step="6"><div class="step-number">6</div><div class="step-content"><h4>Next-Best-Action</h4><p class="step-status">Waiting...</p></div></div>
-                <div class="step-item" data-step="7"><div class="step-number">7</div><div class="step-content"><h4>Execute Actions</h4><p class="step-status">Waiting...</p></div></div>
-                <div class="step-item" data-step="8"><div class="step-number">8</div><div class="step-content"><h4>Measure Outcomes</h4><p class="step-status">Waiting...</p></div></div>
+                <div class="step-item" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Load Job Context</h4>
+                        <p class="step-status">Waiting...</p>
+                    </div>
+                </div>
+                <div class="step-item" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Ingest Application</h4>
+                        <p class="step-status">Waiting...</p>
+                    </div>
+                </div>
+                <div class="step-item" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Normalize & Dedupe</h4>
+                        <p class="step-status">Waiting...</p>
+                    </div>
+                </div>
+                <div class="step-item" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Structured Extraction</h4>
+                        <p class="step-status">Waiting...</p>
+                    </div>
+                </div>
+                <div class="step-item" data-step="5">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Fit Scoring</h4>
+                        <p class="step-status">Waiting...</p>
+                    </div>
+                </div>
+                <div class="step-item" data-step="6">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Next-Best-Action</h4>
+                        <p class="step-status">Waiting...</p>
+                    </div>
+                </div>
+                <div class="step-item" data-step="7">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h4>Execute Actions</h4>
+                        <p class="step-status">Waiting...</p>
+                    </div>
+                </div>
+                <div class="step-item" data-step="8">
+                    <div class="step-number">8</div>
+                    <div class="step-content">
+                        <h4>Measure Outcomes</h4>
+                        <p class="step-status">Waiting...</p>
+                    </div>
+                </div>
             </div>
 
             <div id="verdictSection" class="verdict-section" style="display: none;">
@@ -543,10 +632,20 @@ footer {
     </div>
 
     <script>
-/** ====== CONFIG: REAL BACKEND (Lambda Function URL) ====== */
-const API_BASE_URL = "https://e4dju6jctiyrntr7hijshokdgu0mbgxi.lambda-url.eu-west-3.on.aws/".replace(/\/$/, "");
+/**
+ * IMPORTANT:
+ * - Animation stays as-is.
+ * - This version calls your real backend Lambda Function URL:
+ *   POST  {API_BASE_URL}/start
+ *   GET   {API_BASE_URL}/status?executionArn=...&applicationId=...
+ */
 
-/** ====== Sample data for different scenarios (unchanged) ====== */
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// CONFIG: paste your Lambda Function URL for the API here
+const API_BASE_URL = "https://e4dju6jctiyrntr7hijshokdgu0mbgxi.lambda-url.eu-west-3.on.aws/".replace(/\/$/, "");
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+// Sample data for different scenarios (unchanged)
 const SAMPLE_SCENARIOS = {
     approved: {
         jobDescription: `Warehouse Associate - Forklift Operator
@@ -739,43 +838,98 @@ function clearAllFields() {
     screeningResponsesInput.value = '';
     scenarioSelect.value = '';
 
-    // Hide results if showing
     resultsSection.style.display = 'none';
     verdictSection.style.display = 'none';
 
-    // Reset button
     startButton.disabled = false;
     startButton.textContent = 'START DEMO';
 
-    // Visual feedback
     clearButton.textContent = '✓ Cleared';
-    setTimeout(() => { clearButton.textContent = 'Clear All'; }, 1500);
+    setTimeout(() => {
+        clearButton.textContent = 'Clear All';
+    }, 1500);
 
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function loadSampleData() {
     const scenario = scenarioSelect.value;
+
     if (!scenario) {
         alert('Please select a scenario from the dropdown first!');
         return;
     }
 
     const sampleData = SAMPLE_SCENARIOS[scenario];
+
     jobDescriptionInput.value = sampleData.jobDescription;
     candidateCVInput.value = sampleData.candidateCV;
     screeningResponsesInput.value = sampleData.screeningResponses;
 
-    // Visual feedback
     const scenarioName = scenarioSelect.options[scenarioSelect.selectedIndex].text;
     loadSampleButton.textContent = '✓ Loaded: ' + scenarioName;
-    setTimeout(() => { loadSampleButton.textContent = 'Load Sample Data'; }, 3000);
+    setTimeout(() => {
+        loadSampleButton.textContent = 'Load Sample Data';
+    }, 3000);
 }
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+// --- NEW: robust UI mapping helpers (fixes "missing info" showing as rejected) ---
+function normalizeConfidence(v) {
+    if (typeof v !== "number") return 0;
+    return v <= 1 ? Math.round(v * 100) : Math.round(v);
+}
+
+function deriveUiCategory(finalData) {
+    const decision = String(finalData.finalDecision || "").toLowerCase();
+    const atsStatus = String(finalData.atsStatus || (finalData.ats && finalData.ats.atsStatus) || "").toLowerCase();
+
+    const missing = finalData.missingInformation ?? finalData.missingInfoList ?? (finalData.scoreDetails && finalData.scoreDetails.missingInfo);
+    const missingList = Array.isArray(missing)
+        ? missing.filter(Boolean).map(x => String(x))
+        : (missing ? [String(missing)] : []);
+
+    // Highest priority: Missing info / needs info
+    if (
+        missingList.length > 0 ||
+        atsStatus.includes("needsinfo") ||
+        atsStatus.includes("needs_info") ||
+        decision.includes("missing") ||
+        decision.includes("clarification") ||
+        decision.includes("needs info") ||
+        decision.includes("additional information") ||
+        decision.includes("follow-up") ||
+        decision.includes("follow up")
+    ) {
+        return { category: "missing", label: "⚠ Missing Information / Clarification Required", missingList };
+    }
+
+    // Rejected
+    if (decision.includes("reject") || atsStatus.includes("reject")) {
+        return { category: "rejected", label: "✗ Application Rejected", missingList };
+    }
+
+    // Interview / invited / approved
+    if (
+        decision.includes("interview") ||
+        decision.includes("schedule") ||
+        decision.includes("invite") ||
+        decision.includes("approved") ||
+        atsStatus.includes("invited")
+    ) {
+        return { category: "approved", label: "✓ Interview with HR Scheduled", missingList };
+    }
+
+    // Fallback using score
+    const score = typeof finalData.score === "number" ? finalData.score : 0;
+    if (score >= 60) return { category: "approved", label: "✓ Interview with HR Scheduled", missingList };
+    if (missingList.length > 0) return { category: "missing", label: "⚠ Missing Information / Clarification Required", missingList };
+    return { category: "rejected", label: "✗ Application Rejected", missingList };
+}
+// -------------------------------------------------------------------------------
 
 async function startWorkflow() {
     const jobDescription = jobDescriptionInput.value.trim();
@@ -793,7 +947,6 @@ async function startWorkflow() {
     resultsSection.style.display = 'block';
     verdictSection.style.display = 'none';
 
-    // Reset all steps
     const allSteps = document.querySelectorAll('.step-item');
     allSteps.forEach(step => {
         step.classList.remove('active', 'completed');
@@ -803,7 +956,6 @@ async function startWorkflow() {
 
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    // Run step-by-step workflow (animation stays as-is)
     await runWorkflowVisualization(jobDescription, cv, screeningResponses);
 }
 
@@ -834,9 +986,10 @@ async function runWorkflowVisualization(jobDescription, cv, screeningResponses) 
         statusElement.textContent = '✓ Completed';
     }
 
-    // ===== REAL BACKEND CALLS (replaces simulateWorkflow) =====
+    // --- REAL BACKEND CALL (replaces simulateWorkflow) ---
+    let startResp, startData;
     try {
-        const startResp = await fetch(`${API_BASE_URL}/start`, {
+        startResp = await fetch(`${API_BASE_URL}/start`, {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
@@ -845,120 +998,135 @@ async function runWorkflowVisualization(jobDescription, cv, screeningResponses) 
                 screeningResponses
             })
         });
-
-        const startData = await startResp.json();
-        if (!startResp.ok) {
-            alert("Backend error: " + (startData.error || "Failed to start"));
-            startButton.disabled = false;
-            startButton.textContent = "START DEMO";
-            return;
-        }
-
-        const executionArn = startData.executionArn;
-        const applicationId = startData.applicationId;
-
-        // Poll status until done
-        let finalData = null;
-        for (;;) {
-            await sleep(1500);
-            const st = await fetch(`${API_BASE_URL}/status?executionArn=${encodeURIComponent(executionArn)}&applicationId=${encodeURIComponent(applicationId)}`);
-            const sd = await st.json();
-
-            if (!st.ok) {
-                alert("Status error: " + (sd.error || "Failed status"));
-                break;
-            }
-
-            if (sd.applicationStatus === "SUCCEEDED") {
-                finalData = sd;
-                break;
-            }
-
-            if (["FAILED", "TIMED_OUT", "ABORTED"].includes(sd.applicationStatus)) {
-                alert("Workflow failed: " + (sd.errorMessage || sd.applicationStatus));
-                break;
-            }
-        }
-
-        // Map backend response into your displayVerdict() expected structure
-        if (finalData) {
-            const decision = finalData.finalDecision || "Unknown";
-            const result = {
-                executionId: finalData.executionArn,
-                finalDecision: decision,
-                rejectionReasonCode: finalData.rejectionReasonCode || null,
-                scoreDetails: {
-                    score: finalData.score ?? 0,
-                    scoreBand: (finalData.score >= 75 ? "high" : finalData.score >= 50 ? "medium" : "low"),
-                    confidence: finalData.confidence ?? 0,
-                    explanation: finalData.explanation || "",
-                    missingInfo: Array.isArray(finalData.missingInformation)
-                        ? finalData.missingInformation
-                        : (finalData.missingInformation ? [finalData.missingInformation] : [])
-                }
-            };
-
-            displayVerdict(result);
-        } else {
-            startButton.disabled = false;
-            startButton.textContent = "START DEMO";
-        }
+        startData = await startResp.json();
     } catch (e) {
-        alert("Network error calling backend: " + (e?.message || String(e)));
+        alert("Backend error: failed to reach API. Check CORS / URL.\n\n" + (e && e.message ? e.message : String(e)));
+        startButton.disabled = false;
+        startButton.textContent = "START DEMO";
+        return;
+    }
+
+    if (!startResp.ok) {
+        alert("Backend error: " + (startData.error || "Failed to start"));
+        startButton.disabled = false;
+        startButton.textContent = "START DEMO";
+        return;
+    }
+
+    const executionArn = startData.executionArn;
+    const applicationId = startData.applicationId;
+
+    // Poll status until done
+    let finalData = null;
+    for (;;) {
+        await sleep(1500);
+
+        let st, sd;
+        try {
+            st = await fetch(`${API_BASE_URL}/status?executionArn=${encodeURIComponent(executionArn)}&applicationId=${encodeURIComponent(applicationId)}`);
+            sd = await st.json();
+        } catch (e) {
+            alert("Status error: failed to reach API.\n\n" + (e && e.message ? e.message : String(e)));
+            break;
+        }
+
+        if (!st.ok) {
+            alert("Status error: " + (sd.error || "Failed status"));
+            break;
+        }
+
+        // expected backend field: applicationStatus
+        if (sd.applicationStatus === "SUCCEEDED") {
+            finalData = sd;
+            break;
+        }
+
+        if (["FAILED", "TIMED_OUT", "ABORTED"].includes(sd.applicationStatus)) {
+            alert("Workflow failed: " + (sd.errorMessage || sd.applicationStatus));
+            break;
+        }
+    }
+
+    // Map backend response into displayVerdict expected structure
+    if (finalData) {
+        const ui = deriveUiCategory(finalData);
+
+        const score = typeof finalData.score === "number" ? finalData.score : (finalData.scoreDetails && typeof finalData.scoreDetails.score === "number" ? finalData.scoreDetails.score : 0);
+        const conf = typeof finalData.confidence === "number" ? finalData.confidence : (finalData.scoreDetails && typeof finalData.scoreDetails.confidence === "number" ? finalData.scoreDetails.confidence : 0);
+
+        const result = {
+            executionId: finalData.executionArn,
+            finalDecision: ui.label, // ensures correct color (yellow for missing)
+            rejectionReasonCode: finalData.rejectionReasonCode || null,
+            scoreDetails: {
+                score: score ?? 0,
+                scoreBand: (score >= 75 ? "high" : score >= 50 ? "medium" : "low"),
+                confidence: normalizeConfidence(conf ?? 0),
+                explanation: finalData.explanation || (finalData.scoreDetails && finalData.scoreDetails.explanation) || "",
+                missingInfo: ui.missingList
+            }
+        };
+
+        displayVerdict(result);
+    } else {
         startButton.disabled = false;
         startButton.textContent = "START DEMO";
     }
 }
 
-/**
- * displayVerdict() kept identical behavior:
- * - Uses result.finalDecision text to choose UI label (✓ / ⚠ / ✗)
- * - Shows Score / Confidence / Explanation / Missing Information / Execution ID
- */
 function displayVerdict(result) {
     verdictSection.style.display = 'block';
     verdictSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     let verdictClass = '';
-    let verdictText = result.finalDecision;
+    let verdictText = '';
 
-    // If your backend returns standardized values:
-    // "Interview Scheduled" / "Missing Information / Clarification Required" / "Rejected"
-    // this mapping still works (includes checks below)
-    if (result.finalDecision.toLowerCase().includes('interview')) {
+    const fd = String(result.finalDecision || "");
+
+    // We now expect labels like: ✓ ... / ⚠ ... / ✗ ...
+    if (fd.startsWith("✓")) {
         verdictClass = 'approved';
-        verdictText = '✓ Interview with HR Scheduled';
-    } else if (result.finalDecision.toLowerCase().includes('missing') || result.finalDecision.toLowerCase().includes('clarification') || result.finalDecision.toLowerCase().includes('needs info')) {
+        verdictText = fd;
+    } else if (fd.startsWith("⚠")) {
         verdictClass = 'additional-info';
-        verdictText = '⚠ Missing Information / Clarification Required';
-    } else if (result.finalDecision.toLowerCase().includes('rejected')) {
+        verdictText = fd;
+    } else if (fd.startsWith("✗") || fd.toLowerCase().includes('rejected')) {
         verdictClass = 'rejected';
-        verdictText = '✗ Application Rejected';
+        verdictText = fd.startsWith("✗") ? fd : '✗ Application Rejected';
+    } else {
+        verdictClass = 'additional-info';
+        verdictText = fd || '⚠ Missing Information / Clarification Required';
     }
 
     finalVerdictEl.textContent = verdictText;
     finalVerdictEl.className = `final-verdict ${verdictClass}`;
 
+    const score = result.scoreDetails && typeof result.scoreDetails.score === "number" ? result.scoreDetails.score : 0;
+    const band = result.scoreDetails && result.scoreDetails.scoreBand ? String(result.scoreDetails.scoreBand).toUpperCase() : "LOW";
+    const confidence = result.scoreDetails && typeof result.scoreDetails.confidence === "number" ? result.scoreDetails.confidence : 0;
+    const explanation = result.scoreDetails && result.scoreDetails.explanation ? String(result.scoreDetails.explanation) : "";
+    const missingInfo = result.scoreDetails && Array.isArray(result.scoreDetails.missingInfo) ? result.scoreDetails.missingInfo : [];
+
     let detailsHTML = `
         <div class="verdict-detail-row">
             <span class="verdict-label">Score</span>
-            <span class="verdict-value">${result.scoreDetails.score}/100 (${String(result.scoreDetails.scoreBand || '').toUpperCase()})</span>
+            <span class="verdict-value">${score}/100 (${band})</span>
         </div>
         <div class="verdict-detail-row">
             <span class="verdict-label">Confidence</span>
-            <span class="verdict-value">${result.scoreDetails.confidence}</span>
+            <span class="verdict-value">${confidence}</span>
         </div>
         <div class="verdict-detail-row">
             <span class="verdict-label">Explanation</span>
-            <span class="verdict-value">${result.scoreDetails.explanation}</span>
+            <span class="verdict-value">${explanation}</span>
         </div>
     `;
 
-    if (result.scoreDetails.missingInfo && result.scoreDetails.missingInfo.length > 0) {
+    if (missingInfo.length > 0) {
         detailsHTML += `
             <div class="verdict-detail-row">
                 <span class="verdict-label">Missing Information</span>
-                <span class="verdict-value">${result.scoreDetails.missingInfo.join(', ')}</span>
+                <span class="verdict-value">${missingInfo.join(', ')}</span>
             </div>
         `;
     }
@@ -966,7 +1134,7 @@ function displayVerdict(result) {
     detailsHTML += `
         <div class="verdict-detail-row">
             <span class="verdict-label">Execution ID</span>
-            <span class="verdict-value" style="font-family: monospace;">${result.executionId}</span>
+            <span class="verdict-value" style="font-family: monospace;">${String(result.executionId || "")}</span>
         </div>
     `;
 
@@ -987,8 +1155,7 @@ function displayVerdict(result) {
 
 // Initialize
 console.log('🚀 Agentic Hiring Demo - Frontend Loaded');
-console.log('🔗 Backend API:', API_BASE_URL);
-console.log('💡 Click "Load Sample Data" then "START DEMO" to run a real Step Functions execution');
+console.log('💡 Click "Load Sample Data" then "START DEMO" to see the workflow in action');
     </script>
 </body>
 </html>
