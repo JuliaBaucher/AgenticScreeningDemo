@@ -321,12 +321,8 @@ textarea::placeholder {
 }
 
 @keyframes pulse-glow {
-    0%, 100% {
-        box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
-    }
+    0%, 100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.8); }
 }
 
 .step-content {
@@ -339,13 +335,8 @@ textarea::placeholder {
     font-size: 1.1rem;
 }
 
-.step-item.active .step-content h4 {
-    color: #00d4ff;
-}
-
-.step-item.completed .step-content h4 {
-    color: #00ff88;
-}
+.step-item.active .step-content h4 { color: #00d4ff; }
+.step-item.completed .step-content h4 { color: #00ff88; }
 
 .step-status {
     color: #888;
@@ -357,10 +348,7 @@ textarea::placeholder {
     color: #00d4ff;
     animation: pulse-text 1.5s ease-in-out infinite;
 }
-
-.step-item.completed .step-status {
-    color: #00ff88;
-}
+.step-item.completed .step-status { color: #00ff88; }
 
 @keyframes pulse-text {
     0%, 100% { opacity: 1; }
@@ -399,14 +387,8 @@ textarea::placeholder {
 }
 
 @keyframes slideIn {
-    from {
-        transform: translateY(20px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .final-verdict.approved {
@@ -414,13 +396,11 @@ textarea::placeholder {
     background: rgba(0, 255, 136, 0.1);
     border: 3px solid #00ff88;
 }
-
 .final-verdict.additional-info {
     color: #ffa500;
     background: rgba(255, 165, 0, 0.1);
     border: 3px solid #ffa500;
 }
-
 .final-verdict.rejected {
     color: #ff4444;
     background: rgba(255, 68, 68, 0.1);
@@ -440,20 +420,10 @@ textarea::placeholder {
     padding: 15px;
     border-bottom: 1px solid #3a3a3a;
 }
+.verdict-detail-row:last-child { border-bottom: none; }
 
-.verdict-detail-row:last-child {
-    border-bottom: none;
-}
-
-.verdict-label {
-    color: #aaa;
-    font-weight: 500;
-}
-
-.verdict-value {
-    color: #e0e0e0;
-    font-weight: 600;
-}
+.verdict-label { color: #aaa; font-weight: 500; }
+.verdict-value { color: #e0e0e0; font-weight: 600; }
 
 .rejection-code {
     background: rgba(255, 68, 68, 0.1);
@@ -462,32 +432,12 @@ textarea::placeholder {
     padding: 20px;
     margin-top: 20px;
 }
-
-.rejection-code h4 {
-    color: #ff4444;
-    margin-bottom: 10px;
-}
-
+.rejection-code h4 { color: #ff4444; margin-bottom: 10px; }
 .rejection-code p {
     color: #ff8888;
     font-family: 'Courier New', monospace;
     font-size: 1.1rem;
     font-weight: 600;
-}
-
-.demo-note {
-    background: #2a2a1a;
-    border: 2px solid #ffa500;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 20px 0;
-    text-align: center;
-}
-
-.demo-note p {
-    color: #ffa500;
-    font-weight: 600;
-    font-size: 1.1rem;
 }
 
 footer {
@@ -527,7 +477,7 @@ footer {
                     <p>CV, screening answers, job description, historical outcomes, scheduling system, ATS</p>
                 </div>
             </div>
-            
+
             <div class="equal-opportunity">
                 <p><strong>Equal Opportunity Statement:</strong> We are committed to non-discrimination across educational background, gender identity and expression, sexual orientation, religion, ethnicity, age, socioeconomic status, disability, and veteran status.</p>
             </div>
@@ -535,7 +485,7 @@ footer {
 
         <section class="input-section">
             <h3>Application Inputs</h3>
-            
+
             <div class="input-group">
                 <label for="jobDescription">Job Description</label>
                 <textarea id="jobDescription" rows="6" placeholder="Enter the job description including requirements, responsibilities, and qualifications..."></textarea>
@@ -568,64 +518,16 @@ footer {
 
         <section id="resultsSection" class="results-section" style="display: none;">
             <h3>Workflow Execution</h3>
-            
+
             <div id="workflowSteps" class="workflow-steps">
-                <div class="step-item" data-step="1">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h4>Load Job Context</h4>
-                        <p class="step-status">Waiting...</p>
-                    </div>
-                </div>
-                <div class="step-item" data-step="2">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h4>Ingest Application</h4>
-                        <p class="step-status">Waiting...</p>
-                    </div>
-                </div>
-                <div class="step-item" data-step="3">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h4>Normalize & Dedupe</h4>
-                        <p class="step-status">Waiting...</p>
-                    </div>
-                </div>
-                <div class="step-item" data-step="4">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h4>Structured Extraction</h4>
-                        <p class="step-status">Waiting...</p>
-                    </div>
-                </div>
-                <div class="step-item" data-step="5">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h4>Fit Scoring</h4>
-                        <p class="step-status">Waiting...</p>
-                    </div>
-                </div>
-                <div class="step-item" data-step="6">
-                    <div class="step-number">6</div>
-                    <div class="step-content">
-                        <h4>Next-Best-Action</h4>
-                        <p class="step-status">Waiting...</p>
-                    </div>
-                </div>
-                <div class="step-item" data-step="7">
-                    <div class="step-number">7</div>
-                    <div class="step-content">
-                        <h4>Execute Actions</h4>
-                        <p class="step-status">Waiting...</p>
-                    </div>
-                </div>
-                <div class="step-item" data-step="8">
-                    <div class="step-number">8</div>
-                    <div class="step-content">
-                        <h4>Measure Outcomes</h4>
-                        <p class="step-status">Waiting...</p>
-                    </div>
-                </div>
+                <div class="step-item" data-step="1"><div class="step-number">1</div><div class="step-content"><h4>Load Job Context</h4><p class="step-status">Waiting...</p></div></div>
+                <div class="step-item" data-step="2"><div class="step-number">2</div><div class="step-content"><h4>Ingest Application</h4><p class="step-status">Waiting...</p></div></div>
+                <div class="step-item" data-step="3"><div class="step-number">3</div><div class="step-content"><h4>Normalize & Dedupe</h4><p class="step-status">Waiting...</p></div></div>
+                <div class="step-item" data-step="4"><div class="step-number">4</div><div class="step-content"><h4>Structured Extraction</h4><p class="step-status">Waiting...</p></div></div>
+                <div class="step-item" data-step="5"><div class="step-number">5</div><div class="step-content"><h4>Fit Scoring</h4><p class="step-status">Waiting...</p></div></div>
+                <div class="step-item" data-step="6"><div class="step-number">6</div><div class="step-content"><h4>Next-Best-Action</h4><p class="step-status">Waiting...</p></div></div>
+                <div class="step-item" data-step="7"><div class="step-number">7</div><div class="step-content"><h4>Execute Actions</h4><p class="step-status">Waiting...</p></div></div>
+                <div class="step-item" data-step="8"><div class="step-number">8</div><div class="step-content"><h4>Measure Outcomes</h4><p class="step-status">Waiting...</p></div></div>
             </div>
 
             <div id="verdictSection" class="verdict-section" style="display: none;">
@@ -641,7 +543,10 @@ footer {
     </div>
 
     <script>
-// Sample data for different scenarios
+/** ====== CONFIG: REAL BACKEND (Lambda Function URL) ====== */
+const API_BASE_URL = "https://e4dju6jctiyrntr7hijshokdgu0mbgxi.lambda-url.eu-west-3.on.aws/".replace(/\/$/, "");
+
+/** ====== Sample data for different scenarios (unchanged) ====== */
 const SAMPLE_SCENARIOS = {
     approved: {
         jobDescription: `Warehouse Associate - Forklift Operator
@@ -833,45 +738,39 @@ function clearAllFields() {
     candidateCVInput.value = '';
     screeningResponsesInput.value = '';
     scenarioSelect.value = '';
-    
+
     // Hide results if showing
     resultsSection.style.display = 'none';
     verdictSection.style.display = 'none';
-    
+
     // Reset button
     startButton.disabled = false;
     startButton.textContent = 'START DEMO';
-    
+
     // Visual feedback
     clearButton.textContent = '✓ Cleared';
-    setTimeout(() => {
-        clearButton.textContent = 'Clear All';
-    }, 1500);
-    
+    setTimeout(() => { clearButton.textContent = 'Clear All'; }, 1500);
+
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function loadSampleData() {
     const scenario = scenarioSelect.value;
-    
     if (!scenario) {
         alert('Please select a scenario from the dropdown first!');
         return;
     }
-    
+
     const sampleData = SAMPLE_SCENARIOS[scenario];
-    
     jobDescriptionInput.value = sampleData.jobDescription;
     candidateCVInput.value = sampleData.candidateCV;
     screeningResponsesInput.value = sampleData.screeningResponses;
-    
+
     // Visual feedback
     const scenarioName = scenarioSelect.options[scenarioSelect.selectedIndex].text;
     loadSampleButton.textContent = '✓ Loaded: ' + scenarioName;
-    setTimeout(() => {
-        loadSampleButton.textContent = 'Load Sample Data';
-    }, 3000);
+    setTimeout(() => { loadSampleButton.textContent = 'Load Sample Data'; }, 3000);
 }
 
 function sleep(ms) {
@@ -890,7 +789,7 @@ async function startWorkflow() {
 
     startButton.disabled = true;
     startButton.textContent = 'Processing...';
-    
+
     resultsSection.style.display = 'block';
     verdictSection.style.display = 'none';
 
@@ -904,7 +803,7 @@ async function startWorkflow() {
 
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    // Run step-by-step workflow
+    // Run step-by-step workflow (animation stays as-is)
     await runWorkflowVisualization(jobDescription, cv, screeningResponses);
 }
 
@@ -935,249 +834,87 @@ async function runWorkflowVisualization(jobDescription, cv, screeningResponses) 
         statusElement.textContent = '✓ Completed';
     }
 
-    // Simulate scoring
-    const result = simulateWorkflow(jobDescription, cv, screeningResponses);
-    displayVerdict(result);
-}
-
-function simulateWorkflow(jobDescription, cv, screeningResponses) {
-    const jd = jobDescription.toLowerCase();
-    const cvText = cv.toLowerCase();
-    const sr = screeningResponses.toLowerCase();
-    
-    // Check for clear disqualifiers (for rejection scenario)
-    const hasNoExperience = sr.includes("don't have") || sr.includes("don't have formal") || sr.includes("haven't used");
-    const isStillLearning = sr.includes("learning python") || sr.includes("teaching myself") || sr.includes("completed about");
-    const lacksCriticalDegree = jd.includes("bachelor") && jd.includes("computer science") && 
-                                (cvText.includes("bachelor of arts in english") || cvText.includes("english literature"));
-    
-    // Check for vague/incomplete responses (for missing info scenario)
-    const hasVagueAvailability = sr.includes("need to check") || sr.includes("might need");
-    const hasShortResponses = sr.length < 200;
-    const lacksClearExperience = !cvText.match(/(\d+)\s*(year|month)/i) && cvText.length < 500;
-    
-    // Extract key requirements from job description
-    let criticalMatches = 0;
-    let totalCritical = 0;
-    let missingInfo = [];
-    
-    // Check for experience requirements (e.g., "5+ years", "1+ years")
-    const expMatch = jd.match(/(\d+)\+?\s*years?/);
-    if (expMatch) {
-        totalCritical++;
-        const requiredYears = parseInt(expMatch[1]);
-        const cvExpMatch = cvText.match(/(\d+)\+?\s*years?/);
-        
-        if (cvExpMatch) {
-            const candidateYears = parseInt(cvExpMatch[1]);
-            if (candidateYears >= requiredYears) {
-                criticalMatches++;
-            } else if (candidateYears >= requiredYears * 0.5) {
-                // Has some experience but not enough
-                missingInfo.push(`${requiredYears}+ years experience (has ${candidateYears})`);
-            } else {
-                missingInfo.push(`${requiredYears}+ years professional experience`);
-            }
-        } else if (sr.includes("don't have")) {
-            // Explicitly states no experience - rejection
-            missingInfo.push(`${requiredYears}+ years professional experience`);
-        } else if (cvText.includes('experience') || sr.includes('experience')) {
-            // Has experience mentioned but unclear duration
-            missingInfo.push('specific years of experience');
-        } else {
-            missingInfo.push('documented professional experience');
-        }
-    }
-    
-    // Check for certification requirements
-    if (jd.includes('certif')) {
-        totalCritical++;
-        if (cvText.includes('certif') || sr.includes('certif')) {
-            criticalMatches++;
-        } else {
-            missingInfo.push('required certification');
-        }
-    }
-    
-    // Check for education requirements
-    if (jd.includes('degree') || jd.includes('bachelor') || jd.includes('diploma')) {
-        totalCritical++;
-        if (jd.includes('computer science') || jd.includes('related field')) {
-            // Specific degree requirement
-            if (cvText.includes('computer science') || cvText.includes('engineering')) {
-                criticalMatches++;
-            } else if (cvText.includes('bachelor')) {
-                // Has degree but wrong field - major issue for tech roles
-                missingInfo.push('relevant degree (Computer Science or related field)');
-            } else if (cvText.includes('high school')) {
-                // Only high school - could be missing info
-                missingInfo.push('educational background details');
-            } else {
-                missingInfo.push('bachelor degree');
-            }
-        } else {
-            // General degree or diploma requirement
-            if (cvText.includes('bachelor') || cvText.includes('diploma') || cvText.includes('degree')) {
-                criticalMatches++;
-            } else if (cvText.includes('high school')) {
-                criticalMatches++; // High school is okay for some roles
-            } else {
-                missingInfo.push('education information');
-            }
-        }
-    }
-    
-    // Check for technical skills (programming languages)
-    if (jd.includes('java') || jd.includes('python') || jd.includes('go')) {
-        totalCritical++;
-        const hasJava = cvText.includes('java') && !cvText.includes('javascript');
-        const hasPython = cvText.includes('python') && cvText.includes('developer');
-        const hasGo = cvText.includes('go ') || cvText.includes('golang');
-        
-        if (hasJava || hasPython || hasGo) {
-            criticalMatches++;
-        } else if (sr.includes('learning python') || sr.includes('basic html')) {
-            // Currently learning - not qualified yet
-            missingInfo.push('professional programming experience (currently learning)');
-        } else {
-            missingInfo.push('programming skills (Java, Python, or Go)');
-        }
-    }
-    
-    // Check for cloud platform experience
-    if (jd.includes('aws') || jd.includes('azure') || jd.includes('gcp') || jd.includes('cloud platform')) {
-        totalCritical++;
-        if (cvText.includes('aws') || cvText.includes('azure') || cvText.includes('gcp') || cvText.includes('cloud')) {
-            criticalMatches++;
-        } else if (sr.includes("haven't used") || sr.includes("heard of")) {
-            // Explicitly no cloud experience
-            missingInfo.push('cloud platform experience (AWS, Azure, or GCP)');
-        } else {
-            missingInfo.push('cloud experience');
-        }
-    }
-    
-    // Check for soft skills / communication
-    if (jd.includes('communication') || jd.includes('customer service')) {
-        totalCritical++;
-        if (cvText.includes('customer') || cvText.includes('service') || sr.includes('customers')) {
-            criticalMatches++;
-        } else {
-            missingInfo.push('customer service experience');
-        }
-    }
-    
-    // Check for availability/commitment
-    if (jd.includes('available') || jd.includes('full-time') || jd.includes('shifts') || jd.includes('evening') || jd.includes('weekend')) {
-        totalCritical++;
-        if (sr.includes('available') || sr.includes('can work') || sr.includes('flexible')) {
-            if (sr.includes('need to check') || sr.includes('might need') || sr.includes('need some flexibility')) {
-                // Vague availability
-                missingInfo.push('clear availability confirmation');
-            } else {
-                criticalMatches++;
-            }
-        } else {
-            missingInfo.push('availability and schedule');
-        }
-    }
-    
-    // If no specific requirements detected, use general keyword matching
-    if (totalCritical === 0) {
-        const generalKeywords = ['experience', 'skill', 'knowledge', 'qualified'];
-        totalCritical = generalKeywords.length;
-        generalKeywords.forEach(kw => {
-            if (cvText.includes(kw) || sr.includes(kw)) {
-                criticalMatches++;
-            }
+    // ===== REAL BACKEND CALLS (replaces simulateWorkflow) =====
+    try {
+        const startResp = await fetch(`${API_BASE_URL}/start`, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+                jobDescription,
+                candidateCV: cv,
+                screeningResponses
+            })
         });
-    }
-    
-    // Calculate score
-    const score = totalCritical > 0 ? Math.round((criticalMatches / totalCritical) * 100) : 50;
-    
-    // Determine confidence
-    let confidence = score;
-    
-    // Heavy penalties for clear disqualifiers
-    if (hasNoExperience && jd.includes('5+ years')) {
-        confidence = Math.min(confidence, 15);
-    }
-    if (isStillLearning && jd.includes('proficien')) {
-        confidence = Math.min(confidence, 20);
-    }
-    if (lacksCriticalDegree) {
-        confidence = Math.min(confidence, 25);
-    }
-    
-    // Moderate penalties for vague info
-    if (hasVagueAvailability) {
-        confidence = Math.max(40, confidence - 15);
-    }
-    if (hasShortResponses && !hasNoExperience) {
-        confidence = Math.max(45, confidence - 10);
-    }
-    
-    // Decision logic - FIXED for three distinct outcomes
-    let decision, scoreBand, rejectionCode = null;
-    
-    // SCENARIO 3: Clear rejection (unqualified)
-    if (hasNoExperience && (jd.includes('5+ years') || jd.includes('professional'))) {
-        decision = 'Rejected';
-        scoreBand = 'low';
-        rejectionCode = 'INSUFFICIENT_QUALIFICATIONS';
-    } else if (lacksCriticalDegree && jd.includes('computer science')) {
-        decision = 'Rejected';
-        scoreBand = 'low';
-        rejectionCode = 'EDUCATION_REQUIREMENTS_NOT_MET';
-    } else if (score < 30 && confidence < 30) {
-        decision = 'Rejected';
-        scoreBand = 'low';
-        rejectionCode = 'REQUIREMENTS_NOT_MET';
-    }
-    // SCENARIO 1: Strong approval (well qualified)
-    else if (score >= 80 && confidence >= 80 && missingInfo.length === 0) {
-        decision = 'Approved - Interview with HR scheduled';
-        scoreBand = 'high';
-    }
-    // SCENARIO 2: Missing information (potentially qualified but unclear)
-    else if (missingInfo.length >= 2 && score >= 30 && score < 80) {
-        decision = 'Approved - Additional information requested';
-        scoreBand = 'medium';
-    } else if (hasVagueAvailability || (hasShortResponses && score >= 40 && score < 70)) {
-        decision = 'Approved - Additional information requested';
-        scoreBand = 'medium';
-    }
-    // SCENARIO 1: Moderate approval
-    else if (score >= 60 && confidence >= 60) {
-        decision = 'Approved - Interview with HR scheduled';
-        scoreBand = 'medium';
-    }
-    // Default to rejection if nothing else matches
-    else {
-        decision = 'Rejected';
-        scoreBand = 'low';
-        rejectionCode = 'REQUIREMENTS_NOT_MET';
-    }
-    
-    return {
-        executionId: 'DEMO-' + Math.random().toString(36).substr(2, 9),
-        finalDecision: decision,
-        rejectionReasonCode: rejectionCode,
-        scoreDetails: {
-            score: score,
-            scoreBand: scoreBand,
-            confidence: confidence,
-            explanation: score >= 70 ? 
-                `Strong candidate match: ${criticalMatches}/${totalCritical} key requirements met with high confidence.` :
-                score >= 40 ?
-                `Moderate candidate match: ${criticalMatches}/${totalCritical} key requirements met. ${missingInfo.length > 0 ? 'Additional information needed.' : ''}` :
-                `Low candidate match: Only ${criticalMatches}/${totalCritical} key requirements met. Candidate does not meet minimum qualifications.`,
-            missingInfo: missingInfo
+
+        const startData = await startResp.json();
+        if (!startResp.ok) {
+            alert("Backend error: " + (startData.error || "Failed to start"));
+            startButton.disabled = false;
+            startButton.textContent = "START DEMO";
+            return;
         }
-    };
+
+        const executionArn = startData.executionArn;
+        const applicationId = startData.applicationId;
+
+        // Poll status until done
+        let finalData = null;
+        for (;;) {
+            await sleep(1500);
+            const st = await fetch(`${API_BASE_URL}/status?executionArn=${encodeURIComponent(executionArn)}&applicationId=${encodeURIComponent(applicationId)}`);
+            const sd = await st.json();
+
+            if (!st.ok) {
+                alert("Status error: " + (sd.error || "Failed status"));
+                break;
+            }
+
+            if (sd.applicationStatus === "SUCCEEDED") {
+                finalData = sd;
+                break;
+            }
+
+            if (["FAILED", "TIMED_OUT", "ABORTED"].includes(sd.applicationStatus)) {
+                alert("Workflow failed: " + (sd.errorMessage || sd.applicationStatus));
+                break;
+            }
+        }
+
+        // Map backend response into your displayVerdict() expected structure
+        if (finalData) {
+            const decision = finalData.finalDecision || "Unknown";
+            const result = {
+                executionId: finalData.executionArn,
+                finalDecision: decision,
+                rejectionReasonCode: finalData.rejectionReasonCode || null,
+                scoreDetails: {
+                    score: finalData.score ?? 0,
+                    scoreBand: (finalData.score >= 75 ? "high" : finalData.score >= 50 ? "medium" : "low"),
+                    confidence: finalData.confidence ?? 0,
+                    explanation: finalData.explanation || "",
+                    missingInfo: Array.isArray(finalData.missingInformation)
+                        ? finalData.missingInformation
+                        : (finalData.missingInformation ? [finalData.missingInformation] : [])
+                }
+            };
+
+            displayVerdict(result);
+        } else {
+            startButton.disabled = false;
+            startButton.textContent = "START DEMO";
+        }
+    } catch (e) {
+        alert("Network error calling backend: " + (e?.message || String(e)));
+        startButton.disabled = false;
+        startButton.textContent = "START DEMO";
+    }
 }
 
+/**
+ * displayVerdict() kept identical behavior:
+ * - Uses result.finalDecision text to choose UI label (✓ / ⚠ / ✗)
+ * - Shows Score / Confidence / Explanation / Missing Information / Execution ID
+ */
 function displayVerdict(result) {
     verdictSection.style.display = 'block';
     verdictSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1185,13 +922,16 @@ function displayVerdict(result) {
     let verdictClass = '';
     let verdictText = result.finalDecision;
 
-    if (result.finalDecision.includes('Interview with HR scheduled')) {
+    // If your backend returns standardized values:
+    // "Interview Scheduled" / "Missing Information / Clarification Required" / "Rejected"
+    // this mapping still works (includes checks below)
+    if (result.finalDecision.toLowerCase().includes('interview')) {
         verdictClass = 'approved';
         verdictText = '✓ Interview with HR Scheduled';
-    } else if (result.finalDecision.includes('Additional information')) {
+    } else if (result.finalDecision.toLowerCase().includes('missing') || result.finalDecision.toLowerCase().includes('clarification') || result.finalDecision.toLowerCase().includes('needs info')) {
         verdictClass = 'additional-info';
         verdictText = '⚠ Missing Information / Clarification Required';
-    } else if (result.finalDecision.includes('Rejected')) {
+    } else if (result.finalDecision.toLowerCase().includes('rejected')) {
         verdictClass = 'rejected';
         verdictText = '✗ Application Rejected';
     }
@@ -1202,19 +942,18 @@ function displayVerdict(result) {
     let detailsHTML = `
         <div class="verdict-detail-row">
             <span class="verdict-label">Score</span>
-            <span class="verdict-value">${result.scoreDetails.score}/100 (${result.scoreDetails.scoreBand.toUpperCase()})</span>
+            <span class="verdict-value">${result.scoreDetails.score}/100 (${String(result.scoreDetails.scoreBand || '').toUpperCase()})</span>
         </div>
         <div class="verdict-detail-row">
             <span class="verdict-label">Confidence</span>
-            <span class="verdict-value">${result.scoreDetails.confidence}%</span>
+            <span class="verdict-value">${result.scoreDetails.confidence}</span>
         </div>
         <div class="verdict-detail-row">
             <span class="verdict-label">Explanation</span>
             <span class="verdict-value">${result.scoreDetails.explanation}</span>
         </div>
     `;
-    
-    // Show missing information if applicable
+
     if (result.scoreDetails.missingInfo && result.scoreDetails.missingInfo.length > 0) {
         detailsHTML += `
             <div class="verdict-detail-row">
@@ -1223,7 +962,7 @@ function displayVerdict(result) {
             </div>
         `;
     }
-    
+
     detailsHTML += `
         <div class="verdict-detail-row">
             <span class="verdict-label">Execution ID</span>
@@ -1248,7 +987,8 @@ function displayVerdict(result) {
 
 // Initialize
 console.log('🚀 Agentic Hiring Demo - Frontend Loaded');
-console.log('💡 Click "Load Sample Data" then "START DEMO" to see the workflow in action');
+console.log('🔗 Backend API:', API_BASE_URL);
+console.log('💡 Click "Load Sample Data" then "START DEMO" to run a real Step Functions execution');
     </script>
 </body>
 </html>
