@@ -106,9 +106,37 @@ This solution introduces:
 ---
 
 
-## Business logic
 
-In this workflow, the Structured Extraction step uses Claude (via Bedrock, temperature = 0) to convert the unstructured job description and candidate application into a strict JSON schema containing: years_experience, has_required_certification (true/false), education_level, skills (list), availability, and a model-generated confidence score. This structured output is then passed to a fully deterministic Fit Scoring engine: 40 points are awarded if the candidate has ≥ 2 years of experience (otherwise “Minimum 2 years experience” is recorded as missing), 30 points if the required certification is present (otherwise “Required certification” is missing), 20 points if availability is confirmed (otherwise “Availability confirmation” is missing), and an additional 10-point bonus is added if the extraction confidence is > 70. The maximum score is 100. The final decision is rule-based: if the score is ≥ 75 and no required items are missing → “Interview Scheduled”; if the score is ≥ 40 → “Missing Information / Clarification Required”; otherwise → “Rejected.” The decision is therefore driven by explicit weighted criteria tied to job requirements, ensuring explainability and auditability.
+## Business logic: Extraction, Scoring, and Decision Logic
+
+The workflow begins with a **Structured Extraction** step powered by Claude (via Amazon Bedrock, temperature = 0), which converts the unstructured job description and candidate application into a strict JSON schema containing the following fields:
+
+- `years_experience` (number)  
+- `has_required_certification` (true/false)  
+- `education_level` (string)  
+- `skills` (array of strings)  
+- `availability` (string)  
+- `confidence` (number, model self-reported extraction reliability)
+
+This structured output is passed to a fully deterministic **Fit Scoring** engine. The scoring rubric is explicitly defined as follows:
+
+- **+40 points** if `years_experience >= 2`  
+  - Otherwise: record missing item → `"Minimum 2 years experience"`
+- **+30 points** if `has_required_certification == true`  
+  - Otherwise: record missing item → `"Required certification"`
+- **+20 points** if `availability` is confirmed  
+  - Otherwise: record missing item → `"Availability confirmation"`
+- **+10 bonus points** if `confidence > 70`
+
+Maximum possible score: **100 points**
+
+The final decision is rule-based:
+
+- **Score ≥ 75 AND no missing required items → "Interview Scheduled"**
+- **Score ≥ 40 → "Missing Information / Clarification Required"**
+- **Score < 40 → "Rejected"**
+
+All decisions are driven by explicit weighted criteria tied directly to job requirements, ensuring explainability, auditability, and compliance-ready behavior.
 
 # End-to-End Flow
 
