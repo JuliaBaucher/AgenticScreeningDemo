@@ -62,6 +62,9 @@ This solution introduces:
 
 ## High-Level Architecture
 
+
+```
+
 [ Web UI (HTML) ]
 |
 v
@@ -92,6 +95,7 @@ v
 |
 +--> 4K Write Back to S3
 
+```
 
 ---
 
