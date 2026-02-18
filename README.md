@@ -556,17 +556,6 @@ The user enters the job description, candidate CV, and answers to interview ques
 
 I selected a serverless architecture with a lightweight front end hosted on GitHub and an AWS-based backend with storage on S3, orchestration through Step Functions, and LLM integration via Bedrock.
 
-Load Job Context: prepares job rules and a requirements schema derived from the job description, including versioning and audit flags.
-Ingest Application Event: normalizes the payload into a consistent application object for downstream steps.
-Normalize & Dedupe: canonicalizes the text and generates a deterministic dedupe key, which is how duplicates would be avoided at scale.
-Structured Extraction (LLM): uses Bedrock / Claude to extract a strict JSON schema including years of experience, certification presence, skills, availability, and a confidence estimate (based on the model’s understanding of user inputs). Temperature is set close to 0 for stable outputs.
-Fit Scoring (Deterministic): assigns points for experience, required certification, availability, and a confidence factor. The final application status is determined by rule-based thresholds, accompanied by an LLM-generated summary explaining the outcome. This is important: the model does not decide the outcome — scoring is deterministic and auditable.
-Next Best Action: converts the score and missing information into one of three operational outcomes: interview scheduled, missing information request, or rejection. If rejected, it returns a structured rejection reason code.
-ATS / Comms / Scheduling (Simulated): stub steps that keep contracts realistic without external dependencies.
-Write Back to S3: stores all outcomes (decision, score, reasons, execution ARN) in the application package for auditability.
-Output Metrics: execution and funnel metrics are computed in real time from Step Functions execution history and S3-stored decision data.
-
-
 First, I load the job description. At this step, the system derives a job requirements schema based on simple keyword-based rules (must-have and nice-to-have) and prepares metadata such as job ID, location ID, and versioning for auditability and traceability. 
 
 Second, I ingest the application data — the candidate’s resume and answers to interview questions — and standardize them into a structured JSON object called application. This step does not analyze or extract experience or certifications; it only ensures that all inputs follow a consistent schema for downstream processing. 
