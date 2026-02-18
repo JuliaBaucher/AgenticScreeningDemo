@@ -554,7 +554,7 @@ The challenge is to design an architecture that handles volume, speed, complianc
 How it works:
 The user enters the job description, candidate CV, and answers to interview questions in the UI, and the system evaluates the application and provides a final decision: approved for interview, missing information, or rejected with a rejection reason. To facilitate the demo, there are predefined examples for each scenario. The system also returns execution and business metrics.
 
-I selected a serverless architecture with a lightweight front end hosted on GitHub and an AWS-based backend with storage on S3, orchestration through Step Functions, and LLM integration via Bedrock.
+I selected a serverless architecture with a lightweight front end hosted on GitHub and an AWS-based backend with storage on S3 and modular lamnbda worker fucntions, orchestration through Step Functions, and LLM integration via Bedrock.
 
 First, I load the job description. At this step, the system derives a job requirements schema based on simple keyword-based rules (must-have and nice-to-have) and prepares metadata such as job ID, location ID, and versioning for auditability and traceability. 
 
@@ -566,9 +566,9 @@ In the fourth step, I perform data extraction with the LLM. The model semantical
 
 In the fifth step, this structured output is then used by the scoring engine, which determines the outcome based on deterministic rules. For example, if experience is 2 years or more, it assigns 40 points; if the required certification is present, it assigns 30 points; if availability is confirmed, it assigns 20 points; and if confidence is above 70, it assigns 10 bonus points. The final decision is made based on thresholds: high scores lead to interview scheduling, medium scores to missing information requests, and low scores to rejection.
 
-Next Best Action converts the score and missing information into an operational outcome. The ATS, communication, and scheduling steps are implemented in simulation mode because they are not integrated with external systems; they receive inputs and return structured outputs without performing real external actions.
+Next Best Action converts the score and missing information into an operational outcome. 
 
-ATS / Comms / Scheduling (Simulated): stub steps that keep contracts realistic without external dependencies.
+The ATS, communication, and scheduling steps are implemented in simulation mode because they are not integrated with external systems; they receive inputs and return structured outputs without performing real external actions.
 
 Write Back to S3: all results — including decision, score, explanation, rejection reason (if any), and execution ARN — are written back to the same application object in the S3 bucket, and execution and funnel metrics are generated for observability.
 
