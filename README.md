@@ -553,7 +553,7 @@ The business problem addressed by this type of applications is how to identify t
 How it works:
 The user enters the job description, candidate CV, and answers to interview questions in the UI, and the system evaluates the application and provides a final decision: approved for interview, missing information, or rejected with a rejection reason. To facilitate the demo, there are predefined examples for each scenario. The system also returns execution and business metrics.
 
-I selected a serverless architecture with a lightweight front end hosted on GitHub and an AWS-based backend with storage on S3 and modular lamnbda worker fucntions, orchestration through Step Functions, and LLM integration via Bedrock.
+I selected a serverless architecture with a lightweight front end hosted on GitHub and an AWS-based backend with storage on S3 ,orchestration through Step Functions, and modular lamnbda worker fucntions for applicaton logic on each step and LLM integration via Bedrock.
 
 First, I load the job description. At this step, the system derives a job requirements schema based on simple keyword-based rules (must-have and nice-to-have) and prepares metadata such as job ID, location ID, and versioning for auditability and traceability. 
 
