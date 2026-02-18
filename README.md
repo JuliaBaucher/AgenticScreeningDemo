@@ -548,7 +548,7 @@ To summarize: this prototype demonstrates a practical agentic screening architec
 # Presentation Script 
 For this interview challenge, I designed and built a working prototype of an agentic screening system for high-volume hourly hiring. The goal is to demonstrate a production-style workflow that can handle 10,000+ applications per week across 50+ locations, identify qualified candidates and move them through the funnel, comply with EEOC and fair hiring regulations, and preserve a strong candidate experience — while acknowledging that recruiters cannot manually review every application.
 
-Problem
+
 The challenge is to design an architecture that handles volume, speed, compliance, and user experience (for both recruiters and candidates).
 
 How it works:
