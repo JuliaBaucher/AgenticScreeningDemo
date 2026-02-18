@@ -566,6 +566,23 @@ ATS / Comms / Scheduling (Simulated): stub steps that keep contracts realistic w
 Write Back to S3: stores all outcomes (decision, score, reasons, execution ARN) in the application package for auditability.
 Output Metrics: execution and funnel metrics are computed in real time from Step Functions execution history and S3-stored decision data.
 
+
+First, I load the job description. At this step, the system derives a job requirements schema based on simple keyword-based rules (must-have and nice-to-have) and prepares metadata such as job ID, location ID, and versioning for auditability and traceability. 
+
+Second, I ingest the application data — the candidate’s resume and answers to interview questions — and standardize them into a structured JSON object called application. This step does not analyze or extract experience or certifications; it only ensures that all inputs follow a consistent schema for downstream processing. 
+
+Then I normalize and dedupe the data. The normalizaton is required to perfrom deduplication. I bring all input text to a consistent format: remove additional spaces, convert it to lowercase, and generate a deterministic dedupe key to prevent reprocessing identical applications at scale.
+
+In the fourth step, I perform data extraction with the LLM. The model semantically interprets the job description, CV, and answers, and returns a structured evaluation schema, for example “years_experience: 3” and “has_required_certification: true.” This structured output is then used by the scoring engine, which determines the outcome based on deterministic rules. For example, if experience is 2 years or more, it assigns 40 points; if the required certification is present, it assigns 30 points; if availability is confirmed, it assigns 20 points; and if confidence is above 70, it assigns 10 bonus points. The final decision is made based on thresholds: high scores lead to interview scheduling, medium scores to missing information requests, and low scores to rejection.
+
+Next Best Action converts the score and missing information into an operational outcome. The ATS, communication, and scheduling steps are implemented in simulation mode because they are not integrated with external systems; they receive inputs and return structured outputs without performing real external actions.
+
+At the end, all results — including decision, score, explanation, rejection reason (if any), and execution ARN — are written back to the same application object in the S3 bucket, and execution and funnel metrics are generated for observability.
+
+
+
+
+
 This approach is compliant and production-oriented. It handles high volume thanks to AWS serverless architecture and supports multiple languages through LLM-based extraction. It provides deterministic evaluation of candidates based on scoring, and any rejection is accompanied by a structured reason code to comply with EEOC standards. The architecture anticipates integration with external systems for candidate communication, ATS updates, and interview scheduling.
 
 It is aligned with orchestration principles: execution authority through predefined steps; clear boundaries for LLM usage (the LLM is constrained to specific steps); durable memory and state management using S3 and Step Functions; fully traceable, controlled autonomy with the final decision available for human oversight; and full measurability with execution and business metrics available in the UI and in CloudWatch.
