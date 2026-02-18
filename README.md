@@ -573,13 +573,18 @@ Second, I ingest the application data — the candidate’s resume and answers t
 
 Then I normalize and dedupe the data. The normalizaton is required to perfrom deduplication. I bring all input text to a consistent format: remove additional spaces, convert it to lowercase, and generate a deterministic dedupe key to prevent reprocessing identical applications at scale.
 
-In the fourth step, I perform data extraction with the LLM. The model semantically interprets the job description, CV, and answers, and returns a structured evaluation schema, for example “years_experience: 3” and “has_required_certification: true.” This structured output is then used by the scoring engine, which determines the outcome based on deterministic rules. For example, if experience is 2 years or more, it assigns 40 points; if the required certification is present, it assigns 30 points; if availability is confirmed, it assigns 20 points; and if confidence is above 70, it assigns 10 bonus points. The final decision is made based on thresholds: high scores lead to interview scheduling, medium scores to missing information requests, and low scores to rejection.
+In the fourth step, I perform data extraction with the LLM. The model semantically interprets the job description, CV, and answers, and returns a structured evaluation schema, for example “years_experience: 3” and “has_required_certification: true.” 
+
+In the fifth step, this structured output is then used by the scoring engine, which determines the outcome based on deterministic rules. For example, if experience is 2 years or more, it assigns 40 points; if the required certification is present, it assigns 30 points; if availability is confirmed, it assigns 20 points; and if confidence is above 70, it assigns 10 bonus points. The final decision is made based on thresholds: high scores lead to interview scheduling, medium scores to missing information requests, and low scores to rejection.
 
 Next Best Action converts the score and missing information into an operational outcome. The ATS, communication, and scheduling steps are implemented in simulation mode because they are not integrated with external systems; they receive inputs and return structured outputs without performing real external actions.
 
-At the end, all results — including decision, score, explanation, rejection reason (if any), and execution ARN — are written back to the same application object in the S3 bucket, and execution and funnel metrics are generated for observability.
+ATS / Comms / Scheduling (Simulated): stub steps that keep contracts realistic without external dependencies.
+
+Write Back to S3: all results — including decision, score, explanation, rejection reason (if any), and execution ARN — are written back to the same application object in the S3 bucket, and execution and funnel metrics are generated for observability.
 
 
+Output Metrics: execution and funnel metrics are computed in real time from Step Functions execution history and S3-stored decision data.
 
 
 
