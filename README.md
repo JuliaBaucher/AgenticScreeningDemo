@@ -584,16 +584,16 @@ Next steps: integrate external systems (scheduling, candidate communication, ATS
 
 # Improved Script 
 
-For this interview challenge, I built a working prototype of an agentic AI screening system. The goal of this prototype is to demonstrate a production-style orchestration architecture that can support a high volume of application, identify qualified candidates and move them through the funnel, comply with EEOC and fair hiring regulations, and preserve a strong candidate experience.
+For this interview challenge, I built a working prototype of an agentic AI screening system. The goal of this prototype is to demonstrate a production-style orchestration architecture that can support a high volume of applications, identify qualified candidates and move them through the funnel, comply with EEOC and fair hiring regulations, and preserve a strong candidate experience.
 
-The business problem addressed by this type of applications is how to identify the best-fit candidates for each role, accelerate hiring processes, and  reduce recruiter workload while ensuring compliance and a positive candidate experience. Success criteria include reduced time-to-fill, improved application completion rate, and measurable savings in recruiter hours and hiring costs.
+The business problem addressed by this type of application is how to identify the best-fit candidates for each role, accelerate hiring processes, and  reduce recruiter workload while ensuring compliance and a positive candidate experience. Success criteria include reduced time-to-fill, improved application completion rates, and measurable savings in recruiter hours and hiring costs.
 
 From a technical perspective, the system uses a serverless architecture with a lightweight UI hosted on GitHub and an AWS-based backend. The backend uses Amazon S3 for storage, AWS Step Functions for durable orchestration, and modular Lambda functions to handle application logic at each step. An LLM is integrated via Amazon Bedrock for structured extraction and rationale generation.
 
 How it works:
-The user enters the job description, candidate CV, and answers to interview questions in the UI, and the system evaluates the application and provides a final decision: approved for interview, missing information, or rejected with a rejection reason. To facilitate the demo, there are predefined examples for each scenario. The system also returns execution and business metrics.
+The user enters the job description, candidate CV, and answers to interview questions in the UI, and the system evaluates the application and provides a final decision: approved for interview, missing information, or rejected with a rejection reason. To facilitate the demo, there are predefined examples for each scenario. The system also returns both execution and business metrics.
 
-I selected a serverless architecture with a lightweight front end hosted on GitHub and an AWS-based backend with storage on S3 ,orchestration through Step Functions, and modular lamnbda worker fucntions for applicaton logic on each step and LLM integration via Bedrock.
+I selected a serverless architecture with a lightweight front end hosted on GitHub and an AWS-based backend.  The backend uses S3 for storage, Step Functions for orchestration, and modular Lambda worker functions for application logic at each step, with LLM integration via Bedrock.
 
 The first step loads the job description and derives a requirements schema based on keyword detection. It also prepares metadata such as job ID and location ID for traceability.
 
@@ -601,7 +601,7 @@ Next, the system ingests the application data and standardizes it into a structu
 
 Then, normalization and deduplication are performed. The system removes extra whitespace, converts text to lowercase, and generates a deterministic SHA-256 hash to prevent duplicate processing at scale.
 
-In the fourth step, I perform structured extraction using an LLM. The schema is predefined in the prompt, and the model semantically interprets the unstructured application content and maps it into structured fields such as years of experience, certification status, skills, and availability. For example “years_experience: 3” and “has_required_certification: true.” “Importantly, the LLM does not make the decision — it only performs structured extraction. All policy remains deterministic.”
+In the fourth step, I perform structured extraction using an LLM. The schema is predefined in the prompt, and the model semantically interprets the unstructured application content and maps it into structured fields such as years of experience, certification status, skills, and availability. For example “years_experience: 3” and “has_required_certification: true". Importantly, the LLM does not make the decision — it only performs structured extraction. All policy remains deterministic.
 
 In the fifth step, this structured output is then used by the scoring engine, which determines the outcome based on deterministic rules. For example, if experience is 2 years or more, it assigns 40 points; if the required certification is present, it assigns 30 points; if availability is confirmed, it assigns 20 points; and if confidence is above 70, it assigns 10 bonus points. 
 
@@ -615,10 +615,12 @@ Write Back to S3: all results — including decision, score, explanation, reject
 Output Metrics: execution and funnel metrics are computed from Step Functions execution history and S3-stored decision data and shared in the UI.
 
 
-This approach is compliant with the challenge requirements and production-oriented. The architecture supports high application volume through AWS serverless components and enables multilingual processing because the LLM can semantically interpret input text in different languages and return structured output in English. The system uses deterministic rules for scoring and decision-making, ensuring auditability and consistency. Rejection reason codes and full traceability support regulatory compliance requirements such as EEOC standards. The architecture anticipates integration with ATS systems, scheduling tools, and candidate communication workflows, preserving a positive candidate experience while remaining modular.
+This approach is compliant with the challenge requirements and production-oriented. The architecture supports high application volume through AWS serverless components and enables multilingual processing, as the LLM can semantically interpret input in different languages and return structured output in English.
+
+The system uses deterministic rules for scoring and decision-making, ensuring auditability and consistency. Rejection reason codes and full traceability support regulatory compliance requirements such as EEOC standards. The architecture anticipates integration with ATS systems, scheduling tools, and candidate communication workflows, preserving a positive candidate experience while remaining modular.
 
 It is aligned with orchestration principles: execution authority through predefined steps; clear boundaries for LLM usage (the LLM is constrained to specific steps); durable memory and state management using S3 and Step Functions; fully traceable, controlled autonomy with the final decision available for human oversight; and full measurability with execution and business metrics available in the UI and in CloudWatch.
 
 In terms of prompt approach, I clarified regulatory requirements such as EEOC, evaluated architectural trade-offs between database and S3 storage, and adopted a phased approach — designing the orchestration flow first, building the UI in parallel, and later adding metrics capabilities.
 
-Next steps: integrate external systems (scheduling, candidate communication, ATS), support voice input, implement richer business logic, add SQS for burst handling, introduce a database for configuration and persistence, and incorporate analytics tools.
+Next steps include integrating external systems (scheduling, candidate communication, ATS), supporting voice input, implementing richer business logic, add SQS for burst handling, introducing a database for configuration and persistence, and incorporating analytics tools.
