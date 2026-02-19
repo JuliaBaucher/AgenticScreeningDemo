@@ -591,7 +591,7 @@ The business problem addressed by this type of application is how to identify th
 From a technical perspective, the system uses a serverless architecture with a lightweight UI hosted on GitHub and an AWS-based backend. The backend uses Amazon S3 for storage, AWS Step Functions for durable orchestration, and modular Lambda functions to handle application logic at each step. An LLM is integrated via Amazon Bedrock for structured extraction and decision rationale generation.
 
 How it works:
-The user enters the job description, candidate CV, and answers to interview questions in the UI, and the system evaluates the application and provides a final decision: approved for interview, missing information, or rejected with a rejection reason. To facilitate the demo, there are predefined examples for each scenario. The system also returns both execution and business metrics.
+The user enters input data — a job description, candidate CV, and responses to screening questions — through the UI. The system then evaluates the application and returns a final decision: approved for interview, missing information, or rejected with a rejection reason. To facilitate the demo, there are predefined examples for each scenario. The system also returns both execution and business metrics.
 
 I selected a serverless architecture with a lightweight front end hosted on GitHub and an AWS-based backend.  The backend uses S3 for storage, Step Functions for orchestration, and modular Lambda worker functions for application logic at each step, with LLM integration via Bedrock.
 
