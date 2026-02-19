@@ -582,4 +582,39 @@ It is aligned with orchestration principles: execution authority through predefi
 
 Next steps: integrate external systems (scheduling, candidate communication, ATS), support voice input, implement richer business logic, add SQS for burst handling, introduce a database for configuration and persistence, and incorporate analytics tools.
 
+# Improved Script 
 
+For this interview challenge, I built a working prototype of an agentic AI screening system. The goal of this prototype is to demonstrate a production-style orchestration architecture that can support high application volumes — over 10,000 applications per week across 50 locations — while moving candidates efficiently through the funnel, complying with EEOC and fair hiring regulations, and preserving a positive candidate experience.
+
+The business problem addressed by this system is to accelerate high-volume hiring, ensure regulatory compliance, increase completion rates, and reduce recruiter workload. Key success metrics include completion rate, time-to-fill, and cost savings measured in hours or dollar value.
+
+From a technical perspective, the system uses a serverless architecture with a lightweight UI hosted on GitHub and an AWS-based backend. The backend uses Amazon S3 for storage, AWS Step Functions for durable orchestration, and modular Lambda functions to handle application logic at each step. An LLM is integrated via Amazon Bedrock for structured extraction and rationale generation.
+
+The workflow begins when the user submits inputs through the UI: the job description, the candidate CV, and answers to screening questions. The system evaluates the candidate data for a specific job and returns one of three outcomes: Interview Scheduled, Missing Information / Clarification Required, or Rejected with a structured reason code.
+
+Technically, the first step loads the job description and derives a requirements schema based on keyword detection. It also prepares metadata such as job ID and location ID for traceability.
+
+Next, the system ingests the application data and standardizes it into a structured JSON object containing the CV text, job description, screening answers, job ID, and location ID. This package is stored in S3.
+
+Then, normalization and deduplication are performed. The system removes extra whitespace, converts text to lowercase, and generates a deterministic SHA-256 hash to prevent duplicate processing at scale.
+
+In the fourth step, I perform structured extraction using an LLM. The schema is predefined in the prompt, and the model semantically interprets the unstructured application content and maps it into structured fields such as years of experience, certification status, skills, and availability.
+
+The LLM does not create the evaluation logic. It only extracts values into a predefined schema.
+
+In the next step, I apply deterministic scoring rules. Based on explicit conditions — for example, experience greater than two years — the system assigns weighted points. This ensures the evaluation logic remains transparent and auditable.
+
+Then, a policy step determines the final outcome based on score thresholds. High scores trigger interview scheduling, medium scores request clarification, and low scores result in rejection with a structured reason code.
+
+The ATS update, scheduling, and candidate communication steps are currently simulated. They are included to reflect a production-style architecture, but no external systems are connected in this demo.
+
+At the end of the workflow, all decision artifacts are written back to S3 to ensure full traceability. Aggregated metrics are exposed separately through a read-only endpoint.
+
+
+This approach is compliant with the challenge requirements and production-oriented. The architecture supports high application volume through AWS serverless components and enables multilingual processing because the LLM can semantically interpret input text in different languages and return structured output in English. The system uses deterministic rules for scoring and decision-making, ensuring auditability and consistency. Rejection reason codes and full traceability support regulatory compliance requirements such as EEOC standards. The architecture anticipates integration with ATS systems, scheduling tools, and candidate communication workflows, preserving a positive candidate experience while remaining modular.
+
+It is aligned with orchestration principles: execution authority through predefined steps; clear boundaries for LLM usage (the LLM is constrained to specific steps); durable memory and state management using S3 and Step Functions; fully traceable, controlled autonomy with the final decision available for human oversight; and full measurability with execution and business metrics available in the UI and in CloudWatch.
+
+In terms of prompt approach, I clarified regulatory requirements such as EEOC, evaluated architectural trade-offs between database and S3 storage, and adopted a phased approach — designing the orchestration flow first, building the UI in parallel, and later adding metrics capabilities.
+
+Next steps: integrate external systems (scheduling, candidate communication, ATS), support voice input, implement richer business logic, add SQS for burst handling, introduce a database for configuration and persistence, and incorporate analytics tools.
