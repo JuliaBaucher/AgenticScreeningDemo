@@ -584,11 +584,11 @@ Next steps: integrate external systems (scheduling, candidate communication, ATS
 
 # Improved Script 
 
-For this interview challenge, I built a working prototype of an agentic AI screening system. The goal of this prototype is to demonstrate a production-style orchestration architecture that can support a high volume of applications, identify qualified candidates and move them through the funnel, comply with EEOC and fair hiring regulations, and preserve a strong candidate experience.
+For this interview challenge, I built a working prototype of an agentic AI screening system. The goal of this prototype is to demonstrate a production-style orchestration framework that can support a high volume of applications, identify qualified candidates and move them through the funnel, comply with EEOC and fair hiring regulations, and preserve a strong candidate experience.
 
-The business problem addressed by this type of application is how to identify the best-fit candidates for each role, accelerate hiring processes, and  reduce recruiter workload while ensuring compliance and a positive candidate experience. Success criteria include reduced time-to-fill, improved application completion rates, and measurable savings in recruiter hours and hiring costs.
+The business problem addressed by this type of application is how to identify the best-fit candidates for each role, accelerate hiring processes, and  reduce recruiter workload. Success criteria include reduced time-to-fill, improved application completion rates, and measurable savings in recruiter hours and hiring costs.
 
-From a technical perspective, the system uses a serverless architecture with a lightweight UI hosted on GitHub and an AWS-based backend. The backend uses Amazon S3 for storage, AWS Step Functions for durable orchestration, and modular Lambda functions to handle application logic at each step. An LLM is integrated via Amazon Bedrock for structured extraction and rationale generation.
+From a technical perspective, the system uses a serverless architecture with a lightweight UI hosted on GitHub and an AWS-based backend. The backend uses Amazon S3 for storage, AWS Step Functions for durable orchestration, and modular Lambda functions to handle application logic at each step. An LLM is integrated via Amazon Bedrock for structured extraction and decision rationale generation.
 
 How it works:
 The user enters the job description, candidate CV, and answers to interview questions in the UI, and the system evaluates the application and provides a final decision: approved for interview, missing information, or rejected with a rejection reason. To facilitate the demo, there are predefined examples for each scenario. The system also returns both execution and business metrics.
