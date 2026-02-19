@@ -584,31 +584,35 @@ Next steps: integrate external systems (scheduling, candidate communication, ATS
 
 # Improved Script 
 
-For this interview challenge, I built a working prototype of an agentic AI screening system. The goal of this prototype is to demonstrate a production-style orchestration architecture that can support high application volumes — over 10,000 applications per week across 50 locations — while moving candidates efficiently through the funnel, complying with EEOC and fair hiring regulations, and preserving a positive candidate experience.
+For this interview challenge, I built a working prototype of an agentic AI screening system. The goal of this prototype is to demonstrate a production-style orchestration architecture that can support a high volume of application, identify qualified candidates and move them through the funnel, comply with EEOC and fair hiring regulations, and preserve a strong candidate experience.
 
-The business problem addressed by this system is to accelerate high-volume hiring, ensure regulatory compliance, increase completion rates, and reduce recruiter workload. Key success metrics include completion rate, time-to-fill, and cost savings measured in hours or dollar value.
+The business problem addressed by this type of applications is how to identify the best-fit candidates for each role, accelerate hiring processes, and  reduce recruiter workload while ensuring compliance and a positive candidate experience. Success criteria include reduced time-to-fill, improved application completion rate, and measurable savings in recruiter hours and hiring costs.
 
 From a technical perspective, the system uses a serverless architecture with a lightweight UI hosted on GitHub and an AWS-based backend. The backend uses Amazon S3 for storage, AWS Step Functions for durable orchestration, and modular Lambda functions to handle application logic at each step. An LLM is integrated via Amazon Bedrock for structured extraction and rationale generation.
 
-The workflow begins when the user submits inputs through the UI: the job description, the candidate CV, and answers to screening questions. The system evaluates the candidate data for a specific job and returns one of three outcomes: Interview Scheduled, Missing Information / Clarification Required, or Rejected with a structured reason code.
+How it works:
+The user enters the job description, candidate CV, and answers to interview questions in the UI, and the system evaluates the application and provides a final decision: approved for interview, missing information, or rejected with a rejection reason. To facilitate the demo, there are predefined examples for each scenario. The system also returns execution and business metrics.
 
-Technically, the first step loads the job description and derives a requirements schema based on keyword detection. It also prepares metadata such as job ID and location ID for traceability.
+I selected a serverless architecture with a lightweight front end hosted on GitHub and an AWS-based backend with storage on S3 ,orchestration through Step Functions, and modular lamnbda worker fucntions for applicaton logic on each step and LLM integration via Bedrock.
+
+The first step loads the job description and derives a requirements schema based on keyword detection. It also prepares metadata such as job ID and location ID for traceability.
 
 Next, the system ingests the application data and standardizes it into a structured JSON object containing the CV text, job description, screening answers, job ID, and location ID. This package is stored in S3.
 
 Then, normalization and deduplication are performed. The system removes extra whitespace, converts text to lowercase, and generates a deterministic SHA-256 hash to prevent duplicate processing at scale.
 
-In the fourth step, I perform structured extraction using an LLM. The schema is predefined in the prompt, and the model semantically interprets the unstructured application content and maps it into structured fields such as years of experience, certification status, skills, and availability.
+In the fourth step, I perform structured extraction using an LLM. The schema is predefined in the prompt, and the model semantically interprets the unstructured application content and maps it into structured fields such as years of experience, certification status, skills, and availability. For example “years_experience: 3” and “has_required_certification: true.” 
 
-The LLM does not create the evaluation logic. It only extracts values into a predefined schema.
+In the fifth step, this structured output is then used by the scoring engine, which determines the outcome based on deterministic rules. For example, if experience is 2 years or more, it assigns 40 points; if the required certification is present, it assigns 30 points; if availability is confirmed, it assigns 20 points; and if confidence is above 70, it assigns 10 bonus points. 
 
-In the next step, I apply deterministic scoring rules. Based on explicit conditions — for example, experience greater than two years — the system assigns weighted points. This ensures the evaluation logic remains transparent and auditable.
+IN the six step, 'Next Best Action'  the final decision is made based on thresholds: high scores lead to interview scheduling, medium scores to missing information requests, and low scores to rejection. 
 
-Then, a policy step determines the final outcome based on score thresholds. High scores trigger interview scheduling, medium scores request clarification, and low scores result in rejection with a structured reason code.
+The ATS, communication, and scheduling steps are implemented in simulation mode because they are not integrated with external systems; they receive inputs and return structured outputs without performing real external actions.
 
-The ATS update, scheduling, and candidate communication steps are currently simulated. They are included to reflect a production-style architecture, but no external systems are connected in this demo.
+Write Back to S3: all results — including decision, score, explanation, rejection reason (if any), and execution ARN — are written back to the same application object in the S3 bucket, and execution and funnel metrics are generated for observability.
 
-At the end of the workflow, all decision artifacts are written back to S3 to ensure full traceability. Aggregated metrics are exposed separately through a read-only endpoint.
+
+Output Metrics: execution and funnel metrics are computed from Step Functions execution history and S3-stored decision data and shared in the UI.
 
 
 This approach is compliant with the challenge requirements and production-oriented. The architecture supports high application volume through AWS serverless components and enables multilingual processing because the LLM can semantically interpret input text in different languages and return structured output in English. The system uses deterministic rules for scoring and decision-making, ensuring auditability and consistency. Rejection reason codes and full traceability support regulatory compliance requirements such as EEOC standards. The architecture anticipates integration with ATS systems, scheduling tools, and candidate communication workflows, preserving a positive candidate experience while remaining modular.
