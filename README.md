@@ -563,9 +563,9 @@ Then I normalize and dedupe the data. The normalizaton is required to perfrom de
 
 In the fourth step, I perform data extraction with the LLM. The model semantically interprets the job description, CV, and answers, and returns a structured evaluation schema, for example “years_experience: 3” and “has_required_certification: true.” 
 
-In the fifth step, this structured output is then used by the scoring engine, which determines the outcome based on deterministic rules. For example, if experience is 2 years or more, it assigns 40 points; if the required certification is present, it assigns 30 points; if availability is confirmed, it assigns 20 points; and if confidence is above 70, it assigns 10 bonus points. The final decision is made based on thresholds: high scores lead to interview scheduling, medium scores to missing information requests, and low scores to rejection.
+In the fifth step, this structured output is then used by the scoring engine, which determines the outcome based on deterministic rules. For example, if experience is 2 years or more, it assigns 40 points; if the required certification is present, it assigns 30 points; if availability is confirmed, it assigns 20 points; and if confidence is above 70, it assigns 10 bonus points. 
 
-Next Best Action converts the score and missing information into an operational outcome. 
+IN the six step, 'Next Best Action'  the final decision is made based on thresholds: high scores lead to interview scheduling, medium scores to missing information requests, and low scores to rejection. 
 
 The ATS, communication, and scheduling steps are implemented in simulation mode because they are not integrated with external systems; they receive inputs and return structured outputs without performing real external actions.
 
