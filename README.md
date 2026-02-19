@@ -601,7 +601,7 @@ Next, the system ingests the application data and standardizes it into a structu
 
 Then, normalization and deduplication are performed. The system removes extra whitespace, converts text to lowercase, and generates a deterministic SHA-256 hash to prevent duplicate processing at scale.
 
-In the fourth step, I perform structured extraction using an LLM. The schema is predefined in the prompt, and the model semantically interprets the unstructured application content and maps it into structured fields such as years of experience, certification status, skills, and availability. For example “years_experience: 3” and “has_required_certification: true.” 
+In the fourth step, I perform structured extraction using an LLM. The schema is predefined in the prompt, and the model semantically interprets the unstructured application content and maps it into structured fields such as years of experience, certification status, skills, and availability. For example “years_experience: 3” and “has_required_certification: true.” “Importantly, the LLM does not make the decision — it only performs structured extraction. All policy remains deterministic.”
 
 In the fifth step, this structured output is then used by the scoring engine, which determines the outcome based on deterministic rules. For example, if experience is 2 years or more, it assigns 40 points; if the required certification is present, it assigns 30 points; if availability is confirmed, it assigns 20 points; and if confidence is above 70, it assigns 10 bonus points. 
 
